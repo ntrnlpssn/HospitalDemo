@@ -15,11 +15,11 @@
     {
         private static void Main()
         {
-            var author = new Patient(1, "Толстой", "Лев", "Николаевич");
+            var chamber = new Chamber(1, 674, 4);
+            DateTime dateOfBirth = new DateTime(1995, 5, 13);
+            var patient = new Patient(1, chamber,"Иванов Иван Николаевич", dateOfBirth, "ангина", 5643);
 
-            var book = new Chamber(1, "Война и мир", author);
-
-            Console.WriteLine($"{book} {author}");
+            Console.WriteLine($"{chamber} {patient}");
 
             //// var connectionString = ConfigurationManager.ConnectionStrings["Default"].ConnectionString;
 
@@ -33,8 +33,8 @@
 
             using (var session = sessionFactory.OpenSession())
             {
-                session.Save(book);
-                session.Save(author);
+                session.Save(chamber);
+                session.Save(patient);
                 session.Flush();
             }
 
@@ -72,8 +72,6 @@
                     }
 
                     var persistentChamber = session.Get<Chamber>(newChamber.Id);
-                    //// persistentChamber.Title = "Война и миръ";
-                    //// session.SaveOrUpdate(persistentChamber);
                     session.Delete(persistentChamber);
                     transaction.Commit();
                 }

@@ -13,19 +13,23 @@
         /// Инициализирует новый экземпляр класса <see cref="Patient"/>.
         /// </summary>
         /// <param name="id"> Идентификатор. </param>
-        /// <param name="lastName"> Фамилия. </param>
-        /// <param name="firstName"> Имя. </param>
-        /// <param name="middleName"> Отчество. </param>
+        /// <param name="chamber"> Палата. </param>
+        /// <param name="fullName"> ФИО. </param>
+        /// <param name="birthDate"> Дата рождения. </param>
+        /// <param name="diagnosis"> Диагноз. </param>
+        /// <param name="policy"> Номер полиса. </param>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// В случае если <paramref name="lastName"/> или <paramref name="firstName"/> <see langword="null"/>, пустая строка
+        /// В случае если <paramref name="fullName"/> <see langword="null"/>, пустая строка
         /// или строка, содержащая только пробельные символы.
         /// </exception>
-        public Patient(int id, string lastName, string firstName, string middleName = null)
+        public Patient(int id, Chamber chamber, string fullName, DateTime birthDate, string diagnosis, int policy)
         {
             this.Id = id;
-            this.FirstName = firstName.TrimOrNull() ?? throw new ArgumentOutOfRangeException(nameof(firstName));
-            this.LastName = lastName.TrimOrNull() ?? throw new ArgumentOutOfRangeException(nameof(lastName));
-            this.MiddleName = middleName.TrimOrNull();
+            this.Chamber = chamber;
+            this.FullName = fullName.TrimOrNull() ?? throw new ArgumentOutOfRangeException(nameof(fullName));
+            this.BirthDate = birthDate;
+            this.Diagnosis = diagnosis;
+            this.Policy = policy;
         }
 
         /// <summary>
@@ -42,48 +46,29 @@
         public virtual int Id { get; protected set; }
 
         /// <summary>
-        /// Имя.
+        /// Палата.
         /// </summary>
-        public virtual string FirstName { get; protected set; }
+        public virtual Chamber Chamber { get; protected set; }
 
         /// <summary>
-        /// Фамилия.
+        /// ФИО.
         /// </summary>
-        public virtual string LastName { get; protected set; }
+        public virtual string FullName { get; protected set; }
 
         /// <summary>
-        /// Отчество.
+        /// Дата рождения.
         /// </summary>
-        public virtual string MiddleName { get; protected set; }
+        public virtual DateTime BirthDate { get; protected set; }
 
         /// <summary>
-        /// Полное имя.
+        /// Диагноз.
         /// </summary>
-        public virtual string FullName => $"{this.LastName} {this.FirstName[0]}. {this.MiddleName?[0]}.".Trim();
+        public virtual string Diagnosis { get; protected set; }
 
         /// <summary>
-        /// Множество палат.
+        /// Номер полиса.
         /// </summary>
-        public virtual ISet<Chamber> Chambers { get; protected set; } = new HashSet<Chamber>();
-
-        /// <summary>
-        /// Метод, добавляющий палату пациенту.
-        /// </summary>
-        /// <param name="book"> Добавляемая палата. </param>
-        /// <returns>
-        /// Флаг успешности выполнения операции:
-        /// <see langword="true"/> – палата была успешно добавлена,
-        /// <see langword="false"/> в противном случае.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// В случае если <paramref name="book"/> – <see langword="null"/>.
-        /// </exception>
-        public virtual bool AddChamber(Chamber book)
-        {
-            return book == null
-                ? throw new ArgumentNullException(nameof(book))
-                : this.Chambers.Add(book);
-        }
+        public virtual int Policy { get; protected set; }
 
         /// <inheritdoc/>
         public override string ToString() => this.FullName;

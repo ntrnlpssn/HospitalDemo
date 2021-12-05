@@ -15,31 +15,13 @@
         /// Инициализирует новый экземпляр класса <see cref="Chamber"/>.
         /// </summary>
         /// <param name="id"> Идентификатор. </param>
-        /// <param name="title"> Название. </param>
-        /// <param name="authors"> Пациенты. </param>
-        public Chamber(int id, string title, params Patient[] authors)
-            : this(id, title, new HashSet<Patient>(authors))
-        {
-        }
-
-        /// <summary>
-        /// Инициализирует новый экземпляр класса <see cref="Chamber"/>.
-        /// </summary>
-        /// <param name="id"> Идентификатор. </param>
-        /// <param name="title"> Название. </param>
-        /// <param name="authors"> Множество пациентов. </param>
-        public Chamber(int id, string title, ISet<Patient> authors = null)
+        /// <param name="number"> Номер палаты. </param>
+        /// <param name="capacity"> Вместимость палаты. </param>
+        public Chamber(int id, int number, int capacity)
         {
             this.Id = id;
-
-            this.Title = title.TrimOrNull() ?? throw new ArgumentOutOfRangeException(nameof(title));
-
-            // NOTE: Перебираем множество пациентов или пустое множество (если передан null)
-            foreach (var author in authors ?? Enumerable.Empty<Patient>())
-            {
-                this.Patients.Add(author);
-                author.AddChamber(this);
-            }
+            this.Number = number;
+            this.Capacity = capacity;
         }
 
         /// <summary>
@@ -56,16 +38,17 @@
         public virtual int Id { get; protected set; }
 
         /// <summary>
-        /// Заголовок.
+        /// Номер палаты.
         /// </summary>
-        public virtual string Title { get; set; }
+        public int Number { get; protected set; }
 
         /// <summary>
-        /// Пациенты.
+        /// Вместимость.
         /// </summary>
-        public virtual ISet<Patient> Patients { get; protected set; } = new HashSet<Patient>();
+        /// 
+        public int Capacity { get; protected set; }
 
         /// <inheritdoc/>
-        public override string ToString() => $"{this.Title} {this.Patients.Join()}".Trim();
+        public override string ToString() => $"{this.Number} {this.Capacity}".Trim();
     }
 }
