@@ -1,4 +1,4 @@
-﻿namespace Library.Staff.Extensions
+﻿namespace Hospital.Staff.Extensions
 {
     public static class StringExtensions
     {

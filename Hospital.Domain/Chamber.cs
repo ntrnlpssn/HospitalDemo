@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using Hospital.Staff.Extensions;
+   // using Hospital.Staff.Extensions;
 
     /// <summary>
     /// Палата.
@@ -17,8 +17,13 @@
         /// <param name="id"> Идентификатор. </param>
         /// <param name="number"> Номер палаты. </param>
         /// <param name="capacity"> Вместимость палаты. </param>
-        public Chamber(int id, int number, int capacity)
+        public Chamber(int id, uint number, uint capacity)
         {
+            if (id < 0)
+            {
+                throw new ArgumentException("ID cannot be negative.");
+            }
+
             this.Id = id;
             this.Number = number;
             this.Capacity = capacity;
@@ -40,13 +45,12 @@
         /// <summary>
         /// Номер палаты.
         /// </summary>
-        public int Number { get; protected set; }
+        public uint Number { get; protected set; }
 
         /// <summary>
         /// Вместимость.
         /// </summary>
-        /// 
-        public int Capacity { get; protected set; }
+        public uint Capacity { get; protected set; }
 
         /// <inheritdoc/>
         public override string ToString() => $"{this.Number} {this.Capacity}".Trim();

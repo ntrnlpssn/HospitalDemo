@@ -11,77 +11,28 @@ namespace Hospital.Demo.Tests
         public void ToString_ValidData_Success()
         {
             // arrange
-            var author = new Patient(1, "Толстой", "Лев", "Николаевич");
-            var book = new Chamber(1, "Война и мир", author);
-            var expected = "Война и мир Толстой Л. Н.";
+            var chamber = new Chamber(0, 1, 2);
+            var expected = "1 2";
 
-            //act
-            var actual = book.ToString();
-
-            // assert
-            Assert.AreEqual(expected, actual);
-        }
-
-        [Test]
-        public void ToString_EmptyPatient_Success()
-        {
-            // arrange
-            var book = new Chamber(1, "Библия");
-            var expected = "Библия";
-
-            //act
-            var actual = book.ToString();
+            // act
+            var actual = chamber.ToString();
 
             // assert
             Assert.AreEqual(expected, actual);
         }
 
         [Test]
-        public void Ctor_ValidDataEmptyPatients_Success()
+        public void Constructor_NegativeID_Fail()
         {
-            // arrange & act & assert
-            Assert.DoesNotThrow(() => _ = new Chamber(1, "Библия"));
+            // act & assert
+            Assert.Throws<ArgumentException>(() => _ = new Chamber(-4, 1, 3));
         }
 
         [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase("  ")]
-        [TestCase("\0")]
-        [TestCase("\n")]
-        [TestCase("\r")]
-        [TestCase("\t")]
-        public void Ctor_WrongDataNullTitleEmptyPatients_Fail(string wrongTitle)
+        public void Constructor_ValidData_Success()
         {
             // act & assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => _ = new Chamber(1, wrongTitle));
-        }
-
-        [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase("  ")]
-        [TestCase("\0")]
-        [TestCase("\n")]
-        [TestCase("\r")]
-        [TestCase("\t")]
-        public void Ctor_WrongDataNullTitleEmptyPatient_Fail(string wrongTitle)
-        {
-            // arrange
-            var author = new Patient(1, "Толстой", "Лев", "Николаевич");
-
-            // act & assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => _ = new Chamber(1, wrongTitle));
-        }
-
-        [Test]
-        public void Ctor_ValidData_Success()
-        {
-            // arrange
-            var author = new Patient(1, "Толстой", "Лев", "Николаевич");
-
-            // act & assert
-            Assert.DoesNotThrow(() => _ = new Chamber(1, "Война и мир", author));
+            Assert.DoesNotThrow(() => _ = new Chamber(1, 5, 6));
         }
     }
 }

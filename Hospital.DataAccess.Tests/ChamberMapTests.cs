@@ -14,11 +14,11 @@ namespace Hospital.DataAccess.Tests
         public void PersistenceSpecification_ValidData_Success()
         {
             // arrange
-            var book = new Chamber(1, "Тестовая палата");
+            var chamber = new Chamber(1, 1, 1);
 
             // act & assert
             new PersistenceSpecification<Chamber>(this.Session)
-                .VerifyTheMappings(book);
+                .VerifyTheMappings(chamber);
         }
     }
 }

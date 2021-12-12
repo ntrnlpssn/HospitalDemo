@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Hospital.DataAccess.Mappings
+﻿namespace Hospital.DataAccess.Mappings
 {
     using FluentNHibernate.Mapping;
     using Hospital.Domain;
@@ -17,16 +13,14 @@ namespace Hospital.DataAccess.Mappings
         /// </summary>
         public PatientMap()
         {
-/*            this.Table("Patients");
+            this.Table("Patients");
 
             this.Id(x => x.Id);
-
-            this.Map(x => x.Title);*/
-
-            // see https://stackoverflow.com/a/713666/17310482
-            this.HasManyToMany(x => x.Patients)
-                .Cascade.Delete()
-                .Inverse();
+            this.Map(x => x.BirthDate);
+            this.Map(x => x.Chamber);
+            this.Map(x => x.Diagnosis);
+            this.Map(x => x.FullName);
+            this.Map(x => x.Policy);
         }
     }
 }

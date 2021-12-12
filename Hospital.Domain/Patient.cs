@@ -1,7 +1,6 @@
 ﻿namespace Hospital.Domain
 {
     using System;
-    using System.Collections.Generic;
     using Hospital.Staff.Extensions;
 
     /// <summary>
@@ -22,8 +21,13 @@
         /// В случае если <paramref name="fullName"/> <see langword="null"/>, пустая строка
         /// или строка, содержащая только пробельные символы.
         /// </exception>
-        public Patient(int id, Chamber chamber, string fullName, DateTime birthDate, string diagnosis, int policy)
+        public Patient(int id, Chamber chamber, string fullName, DateTime birthDate, string diagnosis, uint policy)
         {
+            if (id < 0)
+            {
+                throw new ArgumentException("ID cannot be negative.");
+            }
+
             this.Id = id;
             this.Chamber = chamber;
             this.FullName = fullName.TrimOrNull() ?? throw new ArgumentOutOfRangeException(nameof(fullName));
@@ -68,7 +72,7 @@
         /// <summary>
         /// Номер полиса.
         /// </summary>
-        public virtual int Policy { get; protected set; }
+        public virtual uint Policy { get; protected set; }
 
         /// <inheritdoc/>
         public override string ToString() => this.FullName;

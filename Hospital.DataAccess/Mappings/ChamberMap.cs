@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Hospital.DataAccess.Mappings
+﻿namespace Hospital.DataAccess.Mappings
 {
     using FluentNHibernate.Mapping;
     using Hospital.Domain;
@@ -11,20 +9,15 @@ namespace Hospital.DataAccess.Mappings
     internal class ChamberMap : ClassMap<Chamber>
     {
         /// <summary>
-        /// Инициализирует новый экземпляр класса <see cref="ChamberMap"/>.
+        /// Initializes a new instance of the <see cref="ChamberMap"/> class.
         /// </summary>
         public ChamberMap()
         {
-/*            this.Table("Chambers");
+            this.Table("Chambers");
 
             this.Id(x => x.Id);
-
-            this.Map(x => x.Title);*/
-
-            // see https://stackoverflow.com/a/713666/17310482
-            this.HasManyToMany(x => x.Patients)
-                .Cascade.Delete()
-                .Inverse();
+            this.Map(x => x.Capacity);
+            this.Map(x => x.Number);
         }
     }
 }

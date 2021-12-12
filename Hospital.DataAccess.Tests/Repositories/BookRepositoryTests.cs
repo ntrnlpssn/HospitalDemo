@@ -33,9 +33,9 @@
 
         private static void PrepareChamberInStorage(ISession session, int targetId)
         {
-            var book = new Chamber(targetId, "Тестовая");
+            var chamber = new Chamber(0, 1, 4);
 
-            session.Save(book);
+            session.Save(chamber);
             session.Flush();
             session.Clear();
         }

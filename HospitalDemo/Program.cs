@@ -3,6 +3,7 @@
     using System;
     //// using System.Configuration;
     using System.Linq;
+    using System.Collections.Generic;
 
     using Hospital.DataAccess;
     using Hospital.DataAccess.Repositories;
@@ -15,11 +16,20 @@
     {
         private static void Main()
         {
-            var chamber = new Chamber(1, 674, 4);
-            DateTime dateOfBirth = new DateTime(1995, 5, 13);
-            var patient = new Patient(1, chamber,"Иванов Иван Николаевич", dateOfBirth, "ангина", 5643);
+            int count = 400;
+            var chambers = new List<Chamber>();
+            for (int i = 0; i < count; i++)
+            {
+                uint capacity = 0;
+                if (i % 100 == 0) { capacity += 2; }
 
-            Console.WriteLine($"{chamber} {patient}");
+                chambers.Add(new Chamber(i, (uint)i + 1, capacity));
+            }
+
+            DateTime dateOfBirth = new DateTime(1995, 5, 13);
+            var patient = new Patient(1, chambers[201], "Иванов Иван Николаевич", dateOfBirth, "ангина", 5643);
+
+            Console.WriteLine($"{chambers[201]} {patient}");
 
             //// var connectionString = ConfigurationManager.ConnectionStrings["Default"].ConnectionString;
 
@@ -33,7 +43,7 @@
 
             using (var session = sessionFactory.OpenSession())
             {
-                session.Save(chamber);
+                chambers.ForEach(ch => session.Save(ch));
                 session.Save(patient);
                 session.Flush();
             }
@@ -44,8 +54,7 @@
 
                 // TODO: Для наглядности нужно много палат с разным пациентским составом!
                 Console.WriteLine("Results through repo:");
-                repo.Filter(session, b => b.Patients.Count < 2)
-                    .SelectMany(b => b.Patients)
+                repo.Filter(session, ch => ch.Capacity == 4)
                     .Distinct()
                     .ToList()
                     .ForEach(Console.WriteLine);
@@ -65,7 +74,7 @@
                 {
                     session.Clear();
                     var persistentPatient = session.Load<Patient>(1);
-                    var newChamber = persistentPatient.Chambers.FirstOrDefault();
+                    var newChamber = persistentPatient.Chamber;
                     if (newChamber is null)
                     {
                         throw new ArgumentNullException(nameof(newChamber));
@@ -78,7 +87,6 @@
 
                 session.Flush();
             }
-            
         }
     }
 }
