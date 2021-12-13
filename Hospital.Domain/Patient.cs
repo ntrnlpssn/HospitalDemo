@@ -21,7 +21,7 @@
         /// В случае если <paramref name="fullName"/> <see langword="null"/>, пустая строка
         /// или строка, содержащая только пробельные символы.
         /// </exception>
-        public Patient(int id, Chamber chamber, string fullName, DateTime birthDate, string diagnosis, uint policy)
+        public Patient(int id, Chamber chamber, string fullName, DateTime birthDate, string diagnosis, int policy)
         {
             if (id < 0)
             {
@@ -52,7 +52,7 @@
         /// <summary>
         /// Палата.
         /// </summary>
-        public virtual Chamber Chamber { get; protected set; }
+        public virtual Chamber Chamber { get; set; }
 
         /// <summary>
         /// ФИО.
@@ -72,7 +72,7 @@
         /// <summary>
         /// Номер полиса.
         /// </summary>
-        public virtual uint Policy { get; protected set; }
+        public virtual int Policy { get; protected set; }
 
         /// <inheritdoc/>
         public override string ToString() => this.FullName;

@@ -17,7 +17,7 @@
         /// <param name="id"> Идентификатор. </param>
         /// <param name="number"> Номер палаты. </param>
         /// <param name="capacity"> Вместимость палаты. </param>
-        public Chamber(int id, uint number, uint capacity)
+        public Chamber(int id, int number, int capacity)
         {
             if (id < 0)
             {
@@ -45,12 +45,21 @@
         /// <summary>
         /// Номер палаты.
         /// </summary>
-        public uint Number { get; protected set; }
+        public virtual int Number { get; protected set; }
 
         /// <summary>
         /// Вместимость.
         /// </summary>
-        public uint Capacity { get; protected set; }
+        public virtual int Capacity { get; protected set; }
+
+        public virtual ISet<Patient> Patients { get; protected set; } = new HashSet<Patient>();
+
+        public virtual bool AddPatient(Patient patient)
+        {
+            if (patient == null) throw new ArgumentNullException(nameof(Patient));
+            patient.Chamber = this;
+            return this.Patients.Add(patient);
+        }
 
         /// <inheritdoc/>
         public override string ToString() => $"{this.Number} {this.Capacity}".Trim();

@@ -9,6 +9,8 @@
 
     public class ChamberRepository : IRepository<Chamber>
     {
+        private ISession session;
+
         public Chamber Get(ISession session, int id) => session?.Get<Chamber>(id);
 
         public Chamber Find(ISession session, Expression<Func<Chamber, bool>> predicate)
@@ -22,5 +24,21 @@
         {
             return this.GetAll(session).Where(predicate);
         }
+
+        public bool Save( Chamber entity)
+        {
+            try
+            {
+                this.session?.Save(entity);
+                this.session.Flush();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
     }
 }

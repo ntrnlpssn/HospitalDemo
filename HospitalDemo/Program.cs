@@ -20,10 +20,10 @@
             var chambers = new List<Chamber>();
             for (int i = 0; i < count; i++)
             {
-                uint capacity = 0;
+                int capacity = 1;
                 if (i % 100 == 0) { capacity += 2; }
 
-                chambers.Add(new Chamber(i, (uint)i + 1, capacity));
+                chambers.Add(new Chamber(i, (int)i + 1, capacity));
             }
 
             DateTime dateOfBirth = new DateTime(1995, 5, 13);
@@ -35,9 +35,9 @@
 
             var settings = new Settings();
 
-            settings.AddDatabaseServer(@"LAPTOP-2ALR8J1J\SQLEXPRESS");
+            settings.AddDatabaseServer(@"DESKTOP-OJ4THAK\SQLEXPRESS");
 
-            settings.AddDatabaseName("SecuredHospital");
+            settings.AddDatabaseName("securedHospital");
 
             using var sessionFactory = Configurator.GetSessionFactory(settings, showSql: true);
 

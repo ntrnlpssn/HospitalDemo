@@ -17,7 +17,7 @@
 
             this.Id(x => x.Id);
             this.Map(x => x.BirthDate);
-            this.Map(x => x.Chamber);
+            this.References(x => x.Chamber);
             this.Map(x => x.Diagnosis);
             this.Map(x => x.FullName);
             this.Map(x => x.Policy);

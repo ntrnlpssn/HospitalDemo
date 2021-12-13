@@ -11,6 +11,8 @@
 
         TEntity Find(ISession session, Expression<Func<TEntity, bool>> predicate);
 
+        bool Save(TEntity entity);
+
         IQueryable<TEntity> GetAll(ISession session);
 
         IQueryable<TEntity> Filter(ISession session, Expression<Func<TEntity, bool>> predicate);

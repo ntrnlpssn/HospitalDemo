@@ -18,6 +18,9 @@
             this.Id(x => x.Id);
             this.Map(x => x.Capacity);
             this.Map(x => x.Number);
+            this.HasMany(x => x.Patients)
+                .Cascade.Delete()
+                .Not.Inverse();
         }
     }
 }
