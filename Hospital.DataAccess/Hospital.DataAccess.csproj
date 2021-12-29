@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentNHibernate" Version="3.1.0" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.115.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Hospital.Domain\Hospital.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
